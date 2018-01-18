@@ -8,7 +8,7 @@ module.exports = function(server) {
 	/**
 	 * POST
 	 */
-	server.post('/group', (req, res, next) => {
+	server.post('/gw/v1/group', (req, res, next) => {
 		if (!req.is('application/json')) {
 			return next(
 				new errors.InvalidContentError("Expects 'application/json'")
@@ -34,12 +34,88 @@ module.exports = function(server) {
     next();
 	});
 
+	// 2.5.2 Load Group Information List
+	server.get('/gw/v1/group', (req, res, next) => {
+		// TODO modify database load
+
+		let resultObject = {
+			"result_code": "200",
+			"result_msg": "Success",
+			"result_data": {
+				"sync": "2017-01-11 14:10:10",
+				"group_list": [
+					{
+						"gdid": 16727,
+						"group_name": "Group #1",
+						"device_list": [
+							{ "iblid": "0001000000000000000001", "did": 1 },
+							{ "iblid": "0001000000000000000002"}   // did가 아직 매핑되지 않은 경우
+						]
+					},
+					{
+						"gdid": 16728,
+						"group_name": "Group #2",
+						"device_list": [
+							{ "iblid": "0001000000000000000001", "did": 2 },
+							{ "iblid": "0001000000000000000002", "did": 3 }
+						]
+					}
+				]
+			}
+		}
+
+		res.send(200, resultObject);
+		next();
+	});
+
+	// 2.5.3 Load Group Information
+	server.get('/gw/v1/group/:gdid', (req, res, next) => {
+		// TODO modify database load
+
+		let resultObject = {
+			"result_code": "200",
+			"result_msg": "Success",
+			"result_data": {
+				"sync": "2017-01-11 14:10:10",
+				"basic": {
+				"gdid": 16727,
+				"group_name": "Group #1",
+				"device_list": [
+					{ "iblid": "0001000000000000000001", "did": 1 },
+					{ "iblid": "0001000000000000000002"}
+				]
+				}
+			}
+		}
+
+
+		res.send(200, resultObject);
+		next();
+	});
+
+	// 2.5.4 Change Group Information
+	server.put('/gw/v1/group/:gdid', (req, res, next) => {
+		if (!req.is('application/json')) {
+			return next(
+				new errors.InvalidContentError("Expects 'application/json'")
+			);
+		}
+
+		let resultObject = {};
+
+		resultObject.result_code = "200";
+		resultObject.result_msg = "Success";
+
+
+		res.send(200, resultObject);
+		next();
+	});
 
   // 2.5.5 Remove Group
   /**
    * DELETE
    */
-  server.del('/group/:gdid', (req, res, next) => {
+  server.del('/gw/v1/group/:gdid', (req, res, next) => {
     // req.params
   	const gdid = req.params.gdid;
 
@@ -58,11 +134,11 @@ module.exports = function(server) {
   });
 
 
-	// 2.5.7 Control Light Group Status Information
+	// 2.5.6 Control Light Group Status Information
 	/**
 	 * UPDATE
 	 */
-	server.put('/group/:gdid/light', (req, res, next) => {
+	server.put('/gw/v1/group/:gdid/light', (req, res, next) => {
 		if (!req.is('application/json')) {
 			return next(
 				new errors.InvalidContentError("Expects 'application/json'")
@@ -74,7 +150,7 @@ module.exports = function(server) {
 
     // req.body
     const onoff = req.body.onoff || "on";
-    const level = req.body.level || 1000;
+    const level = req.body.level || 100;
     const colorTemp = req.body.colorTemp || 5000;
     const hue = req.body.hue || 359;
     const saturation = req.body.saturation || 100;
@@ -94,5 +170,39 @@ module.exports = function(server) {
 		resultObject.result_msg = "Success";
 
 		res.send(200, resultObject);
+	});
+
+	// 2.5.7 Load Group member Status
+	server.get('/gw/v1/group/:gdid/dstatus', (req, res, next) => {
+		// TODO modify database load
+
+		let resultObject = {
+			"result_code": "200",
+			"result_msg": "Success",
+			"result_data": {
+				"device_list": [
+					{
+						"did": 16,
+						"light": {
+							"onoff": "on",
+							"level": 100,
+							"colortemp": 5000,
+							"hue": 359,
+							"saturation": 100,
+							"brightness": 100,
+							"x": 0.22,
+							"y": 0.48,
+							"r": 255,
+							"g": 255,
+							"b": 255
+						}
+					}
+				]
+			}
+		}
+
+
+		res.send(200, resultObject);
+		next();
 	});
 };
