@@ -30,7 +30,7 @@ module.exports = function(server) {
 		resultObject.result_msg = "Success";
     resultObject.result_data = data;
 
-    res.send(200, resultObject);
+    res.send(200, JSON.stringify(resultObject));
     next();
 	});
 
@@ -107,7 +107,7 @@ module.exports = function(server) {
 		resultObject.result_msg = "Success";
 
 
-		res.send(200, resultObject);
+		res.send(200, JSON.stringify(resultObject));
 		next();
 	});
 
@@ -129,7 +129,7 @@ module.exports = function(server) {
   	resultObject.result_msg = "Success";
     resultObject.result_data = data;
 
-    res.send(200, resultObject);
+    res.send(200, JSON.stringify(resultObject));
   	next();
   });
 
@@ -169,7 +169,7 @@ module.exports = function(server) {
 		resultObject.result_code = "200";
 		resultObject.result_msg = "Success";
 
-		res.send(200, resultObject);
+		res.send(200, JSON.stringify(resultObject));
 	});
 
 	// 2.5.7 Load Group member Status

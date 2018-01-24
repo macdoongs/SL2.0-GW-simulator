@@ -35,7 +35,7 @@ module.exports = function(server) {
       "result_code": "200",
       "result_msg": "Success",
       "result_data": {
-        "sync": "2017-01-11 14:10:10"
+        "sync": "2017-01-11 14:10:10",
         "uspace_list": [
           {
             "uspace_id": 12303,
@@ -464,7 +464,7 @@ module.exports = function(server) {
       "result_code": "200",
       "result_msg": "Success",
       "result_data": {
-        "sync": "2017-01-11 14:10:10"
+        "sync": "2017-01-11 14:10:10",
         "basic": {
           "scid": 16727,
           "scene_name": "Scene #1",
