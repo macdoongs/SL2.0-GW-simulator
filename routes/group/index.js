@@ -16,7 +16,7 @@ module.exports = function(server) {
 		}
 
     // req.body
-		let groupName = req.body.group_name || "test group #1";
+		let groupName = req.body.group_name || "test group 1";
 		let deviceList = req.body.device_list || [];
 
 
@@ -30,7 +30,7 @@ module.exports = function(server) {
 		resultObject.result_msg = "Success";
     resultObject.result_data = data;
 
-    res.send(200, JSON.stringify(resultObject));
+    res.send(200, resultObject);
     next();
 	});
 
@@ -46,7 +46,7 @@ module.exports = function(server) {
 				"group_list": [
 					{
 						"gdid": 16727,
-						"group_name": "Group #1",
+						"group_name": "Group 1",
 						"device_list": [
 							{ "iblid": "0001000000000000000001", "did": 1 },
 							{ "iblid": "0001000000000000000002"}   // did가 아직 매핑되지 않은 경우
@@ -54,7 +54,7 @@ module.exports = function(server) {
 					},
 					{
 						"gdid": 16728,
-						"group_name": "Group #2",
+						"group_name": "Group 2",
 						"device_list": [
 							{ "iblid": "0001000000000000000001", "did": 2 },
 							{ "iblid": "0001000000000000000002", "did": 3 }
@@ -79,7 +79,7 @@ module.exports = function(server) {
 				"sync": "2017-01-11 14:10:10",
 				"basic": {
 				"gdid": 16727,
-				"group_name": "Group #1",
+				"group_name": "Group 1",
 				"device_list": [
 					{ "iblid": "0001000000000000000001", "did": 1 },
 					{ "iblid": "0001000000000000000002"}
@@ -107,7 +107,7 @@ module.exports = function(server) {
 		resultObject.result_msg = "Success";
 
 
-		res.send(200, JSON.stringify(resultObject));
+		res.send(200, resultObject);
 		next();
 	});
 
@@ -129,7 +129,7 @@ module.exports = function(server) {
   	resultObject.result_msg = "Success";
     resultObject.result_data = data;
 
-    res.send(200, JSON.stringify(resultObject));
+    res.send(200, resultObject);
   	next();
   });
 
@@ -169,7 +169,7 @@ module.exports = function(server) {
 		resultObject.result_code = "200";
 		resultObject.result_msg = "Success";
 
-		res.send(200, JSON.stringify(resultObject));
+		res.send(200, resultObject);
 	});
 
 	// 2.5.7 Load Group member Status

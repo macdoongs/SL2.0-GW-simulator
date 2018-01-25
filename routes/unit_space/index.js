@@ -251,7 +251,7 @@ module.exports = function(server) {
 			"result_msg": "Success",
 			"result_data": {
 				"gdid" : 16728,
-        "group_name": "Group #2"
+        "group_name": "Group 2"
 			}
 		}
 
@@ -272,7 +272,7 @@ module.exports = function(server) {
         "group_list": [
           {
           "gdid": 16727,
-          "group_name": "Group #1",
+          "group_name": "Group 1",
           "device_list": [
             { "iblid": "0001000000000000000001", "did": 1 },
             { "iblid": "0001000000000000000002"}
@@ -280,7 +280,7 @@ module.exports = function(server) {
           },
           {
             "gdid": 16728,
-            "group_name": "Group #2",
+            "group_name": "Group 2",
             "device_list": [
               { "iblid": "0001000000000000000001", "did": 2 },
               { "iblid": "0001000000000000000002", "did": 3 }
@@ -403,7 +403,7 @@ module.exports = function(server) {
       "result_msg": "Success",
       "result_data": {
         "scid": 3,
-        "scene_name": "Scene #2"
+        "scene_name": "Scene 2"
       }
     }
 
@@ -431,7 +431,7 @@ module.exports = function(server) {
         "scene_list": [
           {
             "scid": 2,
-            "scene_name": "Scene #1",
+            "scene_name": "Scene 1",
             "device_list": [
               { "iblid": "0001000000000000000001", "did": 1 },
               { "iblid": "0001000000000000000002", "did": 2 }
@@ -440,7 +440,7 @@ module.exports = function(server) {
           },
           {
             "scid": 3,
-            "scene_name": "Scene #2",
+            "scene_name": "Scene 2",
             "device_list": [
               { "iblid": "0001000000000000000002", "did": 2 },
               { "iblid": "0001000000000000000003", "did": 3 }
@@ -467,7 +467,7 @@ module.exports = function(server) {
         "sync": "2017-01-11 14:10:10",
         "basic": {
           "scid": 16727,
-          "scene_name": "Scene #1",
+          "scene_name": "Scene 1",
           "device_list": [
             {
               "did": 2,
@@ -645,12 +645,12 @@ module.exports = function(server) {
         "schedule_list": [
           {
             "shid": 2,
-            "schedule_name": "Schedule #1",
+            "schedule_name": "Schedule 1",
             "status": "active"
           },
           {
             "shid": 3,
-            "schedule_name": "Schedule #2",
+            "schedule_name": "Schedule 2",
             "status": "inactive"
           }
         ]
@@ -674,7 +674,7 @@ module.exports = function(server) {
         "sync": "2017-01-11 14:10:10",
         "basic": {
           "shid": 3,
-          "schedule_name":" Schedule #2",
+          "schedule_name":" Schedule 2",
           "schedule_tasks": [
             {
               "task_id": 1,
