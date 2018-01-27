@@ -71,10 +71,10 @@ if(cluster.isMaster) {
   var client  = mqtt.connect(url, option);
 
   client.on('connect', function () {
-    const topic = "systemlight";
+    const topic = "systemlight/request";
 
     console.log("subscribe :", topic);
-    client.subscribe(topic, 'test');
+    client.subscribe(topic);
 
     client.on('message', function (topic, message) {
       // message is Buffer
