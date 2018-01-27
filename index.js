@@ -22,6 +22,7 @@ const routes = require('./routes');
 const handler = require('./handler');
 const makeGatewayURL = require('./js/make_gateway_URL');
 
+const constants = require('./lib/constants');
 
 
 // TEMP Gateway IP URL
@@ -71,10 +72,10 @@ if(cluster.isMaster) {
   var client  = mqtt.connect(url, option);
 
   client.on('connect', function () {
-    const topic = "systemlight";
+    const topic = constants.MQTT_REQUEST_TOPIC;
 
     console.log("subscribe :", topic);
-    client.subscribe(topic, 'test');
+    client.subscribe(topic);
 
     client.on('message', function (topic, message) {
       // message is Buffer

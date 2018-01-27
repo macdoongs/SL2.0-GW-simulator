@@ -19,9 +19,21 @@ const powerCTRL = require('./controllers/light/power');
 
 const constants = require('./lib/constants');
 
+var mqtt = require('mqtt');
+
+var url = config.aws.amazonMQ.mqtt.url + ":" + config.aws.amazonMQ.mqtt.port;
+var option = {
+  username : config.aws.amazonMQ.user.name,
+  password : config.aws.amazonMQ.user.password
+}
+var client  = mqtt.connect(url, option);
+
+const topicPrefix = constants.MQTT_RESPONSE_TOPIC_PREFIX;
+
+
 
 module.exports = function(message) {
-	console.log(message);
+	//console.log(message);
 
   var messageObject = JSON.parse(message);
 
@@ -31,11 +43,19 @@ module.exports = function(message) {
 
 	console.log(intent);
 
+	var topic = topicPrefix + intent;
+
+	console.log(topic);
+
   switch (intent) {
     case 'DiscoverGateway':
       gatewayCTRL.discoverGateway(function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'CreateGroup':
@@ -44,7 +64,11 @@ module.exports = function(message) {
 
       groupCTRL.createGroup(gatewayObject, groupId, function(error, resultObject){
 
-				console.log(resultObject);
+				//console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'LoadGroupList':
@@ -52,7 +76,11 @@ module.exports = function(message) {
 
       groupCTRL.loadGroupList(gatewayObject, function(error, resultObject){
 
-        console.log(resultObject);
+				//console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'RemoveGroup':
@@ -61,7 +89,11 @@ module.exports = function(message) {
 
       groupCTRL.removeGroup(gatewayObject, groupId, function(error, resultObject){
 
-        console.log(resultObject);
+				//console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'AddLightToGroup':
@@ -71,7 +103,11 @@ module.exports = function(message) {
 
       groupCTRL.addLightToGroup(gatewayObject, deviceObject, groupId, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'LoadLightListFromGroup':
@@ -80,7 +116,11 @@ module.exports = function(message) {
 
       groupCTRL.loadLightListFromGroup(gatewayObject, groupId, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'RemoveLightFromGroup':
@@ -90,7 +130,11 @@ module.exports = function(message) {
 
       groupCTRL.removeLightFromGroup(gatewayObject, deviceObject, groupId, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'CreateLight':
@@ -99,7 +143,11 @@ module.exports = function(message) {
 
       lightCTRL.createLight(gatewayObject, lightId, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'LoadLight':
@@ -108,7 +156,11 @@ module.exports = function(message) {
 
       lightCTRL.loadLight(gatewayObject, lightId, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'RemoveLight':
@@ -117,7 +169,11 @@ module.exports = function(message) {
 
       lightCTRL.removeLight(gatewayObject, lightId, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'LoadLightList':
@@ -125,7 +181,11 @@ module.exports = function(message) {
 
       lightCTRL.loadLightList(gatewayObject, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'CreateUnitSpace':
@@ -134,7 +194,11 @@ module.exports = function(message) {
 
       unitSpaceCTRL.createUnitSpace(gatewayObject, uSpaceName, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'LoadUnitSpaceList':
@@ -142,7 +206,11 @@ module.exports = function(message) {
 
 	    unitSpaceCTRL.loadUnitSpaceList(gatewayObject, function(error, resultObject){
 
-	      console.log(resultObject);
+	      //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
 	    });
       break;
     case 'RemoveUnitSpace':
@@ -152,7 +220,11 @@ module.exports = function(message) {
       unitSpaceCTRL.removeUnitSpace(uSpaceId, function(error, resultObject){
 
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'AddLightToUnitSpace':
@@ -167,7 +239,11 @@ module.exports = function(message) {
 
       unitSpaceCTRL.loadLightListFromUnitSpace(gatewayObject, uSpaceId, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'LoadGroupLightListFromUnitSpace':
@@ -177,7 +253,11 @@ module.exports = function(message) {
 
       unitSpaceCTRL.loadGroupLightListFromUnitSpace(gatewayObject, groupId, uSpaceId, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'RemoveLightFromUnitSpace':
@@ -186,7 +266,11 @@ module.exports = function(message) {
 			var uSpaceId = contentObject.uSpaceId;
       unitSpaceCTRL.removeGroupFromUnitSpace(gatewayObject, groupId, uSpaceId, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'TurnOn':
@@ -199,7 +283,11 @@ module.exports = function(message) {
         var speechOutput = 'turn on the ' + uSpaceName + ' ' + unitId + ' ' + unit;
 
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'TurnOff':
@@ -211,7 +299,11 @@ module.exports = function(message) {
       powerCTRL.handlePower(gatewayObject, uSpaceId, unit, unitId, constants.SL_API_POWER_OFF, constants.DEFAULT_POWER_LEVEL, function(error, resultObject){
         var speechOutput = 'turn off the ' + uSpaceName + ' ' + unitId + ' ' + unit;
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'AdjustPowerLevel':
@@ -222,7 +314,11 @@ module.exports = function(message) {
 
       powerCTRL.adjustPowerLevel(gatewayObject, unit, unitId, command, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'SetPowerLevel':
@@ -234,7 +330,11 @@ module.exports = function(message) {
 
       powerCTRL.handlePower(gatewayObject, uSpaceId, unit, unitId, constants.SL_API_POWER_ON, powerLevel, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'AdjustBrightness':
@@ -245,7 +345,11 @@ module.exports = function(message) {
 
       brightnessCTRL.adjustBrightness(gatewayObject, unit, unitId, command, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'SetBrightness':
@@ -257,7 +361,11 @@ module.exports = function(message) {
 
       brightnessCTRL.setBrightness(gatewayObject, uSpaceId, unit, unitId, brightness, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'SetColor':
@@ -269,7 +377,11 @@ module.exports = function(message) {
 
       colorCTRL.handleColor(gatewayObject, uSpaceId, unit, unitId, color, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'AdjustColorTemperature':
@@ -280,7 +392,11 @@ module.exports = function(message) {
 
       colorTempCTRL.adjustColorTemperature(gatewayObject, unit, unitId, command, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     case 'SetColorTemperature':
@@ -292,7 +408,11 @@ module.exports = function(message) {
 
       colorTempCTRL.setColorTemperature(gatewayObject, uSpaceId, unit, unitId, colorTemperature, function(error, resultObject){
 
-        console.log(resultObject);
+        //console.log(resultObject);
+
+				messageObject.contentObject = resultObject;
+
+				client.publish(topic, JSON.stringify(messageObject));
       });
       break;
     default:

@@ -10,5 +10,22 @@
       "port":"8080",
       "version": "gw/v1"
     }
+  },
+  "aws": {
+    "dynamoDB":{
+      "table":{
+        "name":"SLData"
+      }
+    },
+    "amazonMQ":{
+      "mqtt": {
+        "url": "wss://b.mq.us-east-1.amazonaws.com",
+        "port": "61619"
+      },
+      "user":{
+        "name": "username",
+        "password": "password"
+      }
+    }
   }
 }
