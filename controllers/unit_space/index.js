@@ -39,7 +39,7 @@ exports.createUnitSpace = function(gatewayObject, uSpaceName, callback){
   var data = {
     url: requestURL,
     json: true,
-    body: JSON.stringify(body)
+    body: body
   }
 
   // request gateway
@@ -240,9 +240,7 @@ exports.removeGroupFromUnitSpace = function(gatewayObject, groupId, uSpaceId, ca
 
   var data = {
     url: requestURL,
-    headers: {
-      'content-type': 'application/json'
-    }
+    json: true
   }
 
   request.delete(data, function(error, httpResponse, body){

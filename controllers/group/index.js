@@ -30,11 +30,12 @@ exports.createGroup = function(gatewayObject, groupId, callback){
   var data = {
     url: requestURL,
     json: true,
-    body: JSON.stringify(body)
+    body: body
   }
 
   // request gateway
   request.post(data, function(error, httpResponse, body){
+    console.log(body);
     var data = {
       groupName : groupName,
       gdid: body.result_data.gdid
@@ -135,7 +136,7 @@ exports.addLightToGroup = function(gatewayObject, deviceObject, groupId, callbac
   var data = {
     url: requestURL,
     json: true,
-    body: JSON.stringify(body)
+    body: body
   }
 
   // request gateway
@@ -159,7 +160,7 @@ exports.loadLightListFromGroup = function(gatewayObject, groupId, callback){
   const version = config.sl.gw.version;
 
   const gatewayURL = makeGatewayURL(ip, port, version);
-  var requestURL = gatewayURL + "/group/" + groupId + "/dstatus"
+  var requestURL = gatewayURL + "/group/" + groupId;
 
   var data = {
     url: requestURL,
@@ -167,7 +168,7 @@ exports.loadLightListFromGroup = function(gatewayObject, groupId, callback){
   }
 
   request.get(data, function(error, httpResponse, body){
-    var deviceList = body.result_data.device_list;
+    var deviceList = body.result_data.basic.device_list;
 
     resultObject.code = constants.SL_API_SUCCESS_CODE;
     resultObject.message = "Success";
@@ -209,7 +210,7 @@ exports.removeLightFromGroup = function(gatewayObject, deviceObject, groupId, ca
   var data = {
     url: requestURL,
     json: true,
-    body: JSON.stringify(body)
+    body: body
   }
 
   // request gateway

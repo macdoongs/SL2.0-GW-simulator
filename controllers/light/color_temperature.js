@@ -1,9 +1,12 @@
 
 const async = require("async");
+const config = require("config.json")("./config/config.json");
 const request = require("request");
 
 
 const constants = require('../../lib/constants');
+const makeGatewayURL = require('../../js/make_gateway_URL');
+
 
 
 exports.adjustColorTemperature = function(gatewayObject, unit, unitId, command, callback){
@@ -41,10 +44,10 @@ exports.adjustColorTemperature = function(gatewayObject, unit, unitId, command, 
       var requestURL = gatewayURL + "/" + unit + "/" + unitId;
       switch (unit) {
         case constants.UNIT_LIGHT:
-          gatewayUrl += "/light";
+          requestURL += "/light";
           break;
         case constants.UNIT_GROUP:
-          gatewayUrl += "/dstatus";
+          requestURL += "/dstatus";
           break;
         default:
       }
@@ -96,11 +99,12 @@ exports.adjustColorTemperature = function(gatewayObject, unit, unitId, command, 
       var requestURL = gatewayURL + "/" + unit + "/" + unitId + "/light";
 
       var body = {};
-      body.onoff = preOnOff;
-      body.level = prePowerLevel;
+      // TODO modify gateway
+      //body.onoff = preOnOff;
+      //body.level = prePowerLevel;
 
       // color
-      body.colorTemp = colorTemperature;
+      body.colortemp = Number(colorTemperature);
 
       if(unit == constants.UNIT_GROUP){
         body.onlevel = constants.DEFAULT_POWER_LEVEL;
@@ -109,7 +113,7 @@ exports.adjustColorTemperature = function(gatewayObject, unit, unitId, command, 
       var data = {
         url: requestURL,
         json: true,
-        body: JSON.stringify(body)
+        body: body
       }
 
       // request gateway
@@ -140,6 +144,10 @@ exports.setColorTemperature = function(gatewayObject, uSpaceId, unit, unitId, co
 
   var resultObject = {};
 
+  const ip = gatewayObject.ip;
+  const port = gatewayObject.tcp_port;
+  const version = config.sl.gw.version;
+
   // Request query
   const gatewayURL = makeGatewayURL(ip, port, version);
   var requestURL = gatewayURL;
@@ -153,14 +161,15 @@ exports.setColorTemperature = function(gatewayObject, uSpaceId, unit, unitId, co
   const onoff = constants.SL_API_POWER_ON;
   const level = constants.DEFAULT_POWER_LEVEL;
 
-  const colorTemperatureInKelvin = colorTemperature;
+  const colorTemperatureInKelvin = Number(colorTemperature);
 
   var body = {};
-  body.onoff = onoff;
-  body.level = level;
+  // TODO modify gateway
+  //body.onoff = onoff;
+  //body.level = level;
 
   // color
-  body.colorTemp = colorTemperatureInKelvin;
+  body.colortemp = colorTemperatureInKelvin;
 
   if(unit == constants.UNIT_GROUP){
     body.onlevel = constants.DEFAULT_POWER_LEVEL;
@@ -169,8 +178,10 @@ exports.setColorTemperature = function(gatewayObject, uSpaceId, unit, unitId, co
   var data = {
     url: requestURL,
     json: true,
-    body: JSON.stringify(body)
+    body: body
   }
+
+  console.log(data);
 
   // request gateway
   request.put(data, function(error, httpResponse, body){
