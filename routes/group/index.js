@@ -151,7 +151,7 @@ module.exports = function(server) {
     // req.body
     const onoff = req.body.onoff || "on";
     const level = req.body.level || 100;
-    const colorTemp = req.body.colorTemp || 5000;
+    const colortemp = req.body.colortemp || 5000;
     const hue = req.body.hue || 359;
     const saturation = req.body.saturation || 100;
     const brightness = req.body.brightness || 100;

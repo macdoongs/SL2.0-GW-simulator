@@ -182,7 +182,7 @@ module.exports = function(server) {
 		// req.body
     const onoff = req.body.onoff || "on";
     const level = req.body.level || 100;
-    const colorTemp = req.body.colorTemp || 5000;
+    const colortemp = req.body.colortemp || 5000;
     const hue = req.body.hue || 359;
     const saturation = req.body.saturation || 100;
     const brightness = req.body.brightness || 100;
@@ -422,7 +422,7 @@ module.exports = function(server) {
 		// TODO modify database load
 		const onoff = "on";
     const level = 100;
-    const colorTemp = 5000;
+    const colortemp = 5000;
     const hue = 359;
     const saturation = 100;
     const brightness = 100;
@@ -437,7 +437,7 @@ module.exports = function(server) {
 
 		data.onoff = onoff;
 		data.level = level;
-		data.colorTemp = colorTemp;
+		data.colortemp = colortemp;
 		data.hue = hue;
 		data.saturation = saturation;
 		data.brightness = brightness;

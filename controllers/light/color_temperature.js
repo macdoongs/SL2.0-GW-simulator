@@ -63,13 +63,13 @@ exports.adjustColorTemperature = function(gatewayObject, unit, unitId, command, 
           case constants.UNIT_LIGHT:
             preOnOff = body.result_data.onoff;
             prePowerLevel = body.result_data.level;
-            preColorTemperature = body.result_data.colorTemp;
+            preColorTemperature = body.result_data.colortemp;
 
             break;
           case constants.UNIT_GROUP:
             preOnOff = body.result_data.device_list[0].onoff;
             prePowerLevel = body.result_data.device_list[0].level;
-            preColorTemperature = body.result_data.device_list[0].colorTemp;
+            preColorTemperature = body.result_data.device_list[0].colortemp;
 
             break;
           default:
